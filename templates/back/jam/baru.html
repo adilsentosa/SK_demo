@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-6 col-6 mx-auto">
+  <div class="card card-body ">
+    <h6 class="mb-0">Import Data Jam</h6>
+    <hr class="horizontal dark my-2">
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input class="form-control form-control-sm" id="formFileSm" type="file" name='file'>
+
+      <div class="d-flex justify-content-end mt-4">
+        <button type="button" name="button" class="btn btn-light m-0">Cancel</button>
+        <button type="submit" name="submit" class="btn bg-gradient-primary m-0 ms-2">Create Project</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}

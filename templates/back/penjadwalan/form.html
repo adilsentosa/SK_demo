@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-12 mx-auto">
+  <div class="card card-body ">
+    <div class="card-header">
+      <h6 class="mb-0">Penjadwalan</h6>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label class="form-label requiredField">Jumlah Kromosom Dibangkitkan</label>
+          <input type="number" name="num_kromosom" value="10" class="textinput textInput form-control" required>
+          <p class="help-block">Masukkan antara 10-500</p>
+        </div>
+        <div class="mb-3">
+          <label class="form-label requiredField">Maksimal Generasi</label>
+          <input type="number" name="max_generation" value="25" class="textinput textInput form-control" required>
+          <p class="help-block">Masukkan antara 25-500</p>
+        </div>
+        <!--<div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="debug" name="debug">
+          <label class="form-check-label" for="debug">
+            Tampilkan proses algoritma
+          </label>
+        </div>-->
+        <p>
+          <a class="btn bg-gradient-secondary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Opsi Lain
+          </a>
+          <button type="submit" class="btn bg-gradient-primary">Generate Jadwal</button>
+          {% if best_fitness %}
+          <a class="btn bg-gradient-success" href="{% url 'jadwal' %}">
+            Lihat Jadwal
+          </a>
+          {% endif %}
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            Total Jadwal Pelajaran: {{total_tugas}}<br />
+            Total Waktu: {{total_waktu}}<br />
+          </div>
+          <div class="form-group">
+            <label>Crossover Rate</label>
+            <input class="form-control" type="number" name="crossover_rate" value="75" />
+            <p class="help-block">Masukkan antara 1-100</p>
+          </div>
+          <div class="form-group">
+            <label>Mutation Rate</label>
+            <input class="form-control" type="number" name="mutation_rate" value="25" />
+            <p class="help-block">Masukkan antara 1-100</p>
+          </div>
+        </div>
+      </form>
+    <!-- {% if best_fitness %}
+      <pre class="border border-1 p-2">
+FITNESS TERBAIK: {{best_fitness}}
+Execution Time: {{execution_time}} seconds
+GENERASI: {{generation}}
+CROMOSSOM TERBAIK: {{best_cromossom}}</pre>
+      {% endif %}
+      {% if debug %}
+      {{debug|safe}}
+      {% endif %}--> 
+    </div>
+  </div>
+</div>
+<script src="{% static 'assets/js/plugins/sweetalert.min.js' %}"></script>
+
+{% endblock content %}

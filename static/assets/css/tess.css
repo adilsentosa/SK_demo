@@ -1,0 +1,6 @@
+.table-responsive .table-striped tbody.tes td{
+    padding-left: 25px;
+}
+.table-responsive .table-flush tbody.tes td{
+    padding-left: 255px;
+}

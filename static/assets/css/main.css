@@ -1,0 +1,7 @@
+.search-results {
+    margin-top: 20px;
+    border: 1px solid #ce8787;
+    border-radius: 5px;
+    visibility: hidden;
+    position: absolute;
+}

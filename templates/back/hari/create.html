@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<main class="main-content position-relative border-radius-lg ">
+  <div class="container-fluid py-4">
+    <div class="row ">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12 col-lg-12 m-auto">
+            <form method="POST" action="" class="multisteps-form__form mb-12">
+              {% csrf_token %}
+              <div class="card mt-4" id="basic-info">
+                <div class="card-header">
+                  <h5 class="font-weight-bolder mb-0">Kelas</h5>
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row mt-3">
+                    <div class="col-12">
+                      <div class="row">
+                        {{form.nama_hari | as_crispy_field}}
+                        {{form.jam | as_crispy_field}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="button-row d-flex mt-4">
+                    <input type="submit" name="Submit" button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next"
+                      type="button"></button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
+
+
+
+{% endblock content %}

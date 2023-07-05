@@ -1,0 +1,46 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+
+{% block content  %}
+
+
+
+  <div class="page-header align-items-start min-vh-50 pt-7 pb-9 m-4 bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"   
+  style="background-image: url('{% static "images/total1.jpg" %}');  background-position: center;">
+  <span class="mask bg-primary opacity-4"></span>
+    <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-5 text-center mx-auto">
+            <h1 class="text-white mb-2 mt-5">REGISTRASI</h1>
+            <p class="text-lead text-white">Silahkan Pilih  sesuai profesi anda </p>
+        </div>
+        </div>
+
+        <div class="row justify-content-center mt-7 mb-8 ">
+          <div class="col-4">
+            <!-- <div class="col-lg-10 col-12 d-flex ms-auto"> -->
+              <a href="{% url 'registerpegawai' %}" class="btn btn-icon btn-outline-white ms-auto ">
+                <span class="btn-sm btn-inner--text  fs-1">Pegawai</span> 
+              </a>
+            <!-- </div> -->
+          </div>
+          <div class="col-4">
+            <!-- <div class="col-lg-10 col-12 d-flex ms-auto"> -->
+              <a href="{% url 'registerwalisiswa' %}" class="btn btn-icon btn-outline-white ms-auto">
+                <span class="btn-sm btn-inner--text fs-1">Walisiswa</span> 
+              </a>
+            <!-- </div> -->
+          </div> 
+        </div>
+      </div>
+  </div>
+    
+   
+
+
+
+  
+    
+ 
+
+{% endblock content  %}

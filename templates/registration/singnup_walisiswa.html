@@ -1,0 +1,112 @@
+
+{% extends 'registration/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<main class="main-content  mt-0">
+  <section>
+    <div class="page-header min-vh-100">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+            <div class="card card-plain">
+              <div class="card-header pb-0 text-left">
+                <h4 class="font-weight-bolder">Sign Up Walisiswa</h4>
+                <p class="mb-0">Enter your email and password to register</p>
+              </div>
+              <div class="card-body pb-3">
+                
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <label>Username</label>
+                  <div class="mb-3">
+                    <div class="input-group-append">
+                      {{form.username}}
+                    </div>
+                  </div> 
+                  <label>Email</label>
+                  <div class="mb-3">
+                    <div class="input-group-append">
+                      {{form.email}}
+                    </div>
+                  </div>
+                  <label>Nama Depan</label>
+                  <div class="mb-3">
+                    <div class="input-group-append">
+                      {{form.first_name}}
+                    </div>
+                  </div>
+                  <label>Nama Belakang</label>
+                  <div class="mb-3">
+                    <div class="input-group-append">
+                      {{form.last_name}}
+                    </div>
+                  </div>
+                  <label>Password</label>
+                  <div class="mb-3">
+                    <div class="input-group-append">
+                      {{form.password1}}
+                    </div>
+                  </div>
+                  <label>Confrim your password</label>
+                  <div class="mb-3">
+                    <div class="input-group-append">
+                      {{form.password2}}
+                    </div>
+                  </div>
+                  
+
+                  
+
+                  <div class="text-center">
+                  <input class="btn btn-primary w-100 mt-4 mb-0" type="submit" value="Register Account">
+                  </div>
+                </form>
+              </div>
+              {{form.errors}}
+             
+
+              <div class="card-footer text-center pt-0 px-sm-4 px-1">
+                <p class="mb-4 mx-auto">
+                  Already have an account?
+                  <a href="{%url 'login'%}" class="text-primary font-weight-bold">Sign in</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"  style="background-image: url('{% static "images/Asset_Final.png" %}');
+        background-size: cover;">
+              <span class="mask bg-primary opacity-4"></span>
+              <h4 class="mt-5 text-white font-weight-bolder position-relative">Your journey starts here</h4>
+              <p class="text-white position-relative">Just as it takes a company to sustain a product, it takes a community to sustain a protocol.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      
+      var form_fields = document.getElementsByTagName('input')
+      form_fields[1].placeholder='Username..';
+      form_fields[2].placeholder='Email..';
+      form_fields[3].placeholder='Nama Depan...';
+      form_fields[4].placeholder='Nama Belakang...';
+      form_fields[5].placeholder='Enter password...';
+      form_fields[6].placeholder='Re-enter Password...';
+
+
+
+      for (var field in form_fields){	
+      form_fields[field].className += ' form-control'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+</script>
+  </section>
+</main>
+{% endblock content %}
+
+

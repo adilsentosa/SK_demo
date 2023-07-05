@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<link id="pagestyle" href="{% static 'assets/css/tess.css' %}" rel="stylesheet" />
+
+<main class="main-content position-relative border-radius-lg ">
+  <div class="container-fluid py-4">
+    <div class="row justify-content-center mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="d-lg-flex">
+              <h5 class="mb-0">Tabel Ruangan</h5>
+              <div class="ms-auto my-auto mt-lg-0 mt-4">
+                <div class="ms-auto my-auto">
+                  <a href="{% url 'create_ruangan' %}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Ruangan</a>
+                  <a href="{% url 'importruangan' %}" class="btn btn-outline-primary btn-sm mb-0"> Import</a>
+                  <a href="{% url 'exportruangan' %}" class="btn btn-outline-primary btn-sm mb-0" target="_blank">Export</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-flush" id="datatable-search">
+                <thead class="thead-light">
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Ruangan</th>
+                    <th>Kelas</th>
+                    <th>Jenis</th>
+                    <th class="text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for rg in ruang_form %}
+                  <tr>
+                    <td class="text-sm font-weight-small">{{rg.id}}</td>
+                    <td class="text-sm font-weight-small">{{rg.nama_ruangan}}</td>
+                    <td class="text-sm font-weight-small">{{rg.kelas}}</td>
+                    <td class="text-sm font-weight-small">{{rg.jenis}}</td>
+                    <td class="text-center">
+                      <a href="{% url 'update_ruangan' rg.id %}" class="btn bg-gradient-warning"
+                        data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                        ubah
+                      </a>
+                      <button type="button" data-bs-toggle="modal" class="btn bg-gradient-danger"
+                        data-bs-target="#Delete{{rg.id}}">
+                        hapus
+                      </button>
+                    </td>
+                  </tr>
+                  <div class="modal fade" id="Delete{{rg.id}}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog mt-lg-10">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="ModalLabel">Hapus {{rg.nama_ruangan}}</h5>
+                          <i class="fas fa-upload ms-3"></i>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Are you sure you want to delete<strong> {{rg.nama_ruangan}}</strong> permanently?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <form method="POST" action="{% url 'delete_ruangan' rg.id %}">
+                            {% csrf_token %}
+                            <button type="button" class="btn bg-gradient-secondary btn-sm"
+                              data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-danger" name="Confirm">
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor%}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

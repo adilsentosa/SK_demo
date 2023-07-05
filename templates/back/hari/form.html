@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="main-content position-relative border-radius-lg ">
+  <div class="container-fluid py-4">
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header pb-0">
+            <div class="d-lg-flex">
+              <div>
+                <h5 class="mb-0">Tabel Hari</h5>
+              </div>
+              <div class="ms-auto my-auto mt-lg-0 mt-4">
+                <div class="ms-auto my-auto">
+                  <a href="{% url 'create_hari' %}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp;
+                    Hari</a>
+                  <a href="{% url 'importhari' %}" class="btn btn-outline-primary btn-sm mb-0" target="_blank">
+                    Import</a>
+                  <a href="{% url 'exporthari' %}" class="btn btn-outline-primary btn-sm mb-0" target="_blank">
+                    Export</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-flush" id="datatable-search">
+                <thead class="thead-light">
+                  <tr>
+                    <th>No</th>
+                    <th>Hari</th>
+                    <th>Waktu Mulai</th>
+                    <th>Waktu Selesai</th>
+                    <th class="text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for k in hari %}
+                  <tr>
+                    <td>{{k.id}}</td>
+                    <td>{{k.nama_hari}}</td>
+                    <td>{{k.jam.waktu_mulai|time:"H:i"}}</td>
+                    <td>{{k.jam.waktu_selesai|time:"H:i"}}</td>
+                    <td class="text-center">
+                      <a href="{% url 'update_hari' k.id %}" class="btn btn-outline-warning" data-bs-toggle="tooltip"
+                        data-bs-original-title="Edit">
+                        ubah
+                      </a>
+                      <button type="button" data-bs-toggle="modal" class="btn btn-outline-danger"
+                        data-bs-target="#Delete{{k.id}}">
+                        hapus
+                      </button>
+
+                    </td>
+                  </tr>
+                  <div class="modal fade" id="Delete{{k.id}}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog mt-lg-10">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="ModalLabel">Hapus {{k.nama_hari}}</h5>
+                          <i class="fas fa-upload ms-3"></i>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Are you sure you want to delete <strong>{{k.nama_hari}}</strong> permanently?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <form method="POST" action="{% url 'delete_hari' k.id %}">
+                            {% csrf_token %}
+                            <button type="button" class="btn bg-gradient-secondary btn-sm"
+                              data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-danger" name="Confirm">
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor%}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

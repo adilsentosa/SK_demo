@@ -1,0 +1,60 @@
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+
+    function init_flatpickr() {
+        flatpickr(".datetimepicker");
+        let datepicker = document.querySelectorAll('.datetimepicker');
+        for (let i = 0; i < datepicker.length; i++) {
+            datepicker[i].flatpickr({
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                time_24hr: true,
+            });
+        }
+    }
+
+    function init_flatpickrdateonly() {
+        console.log('loaded')
+        flatpickr(".datepicker");
+        let datepicker = document.querySelectorAll('.datepicker');
+        for (let i = 0; i < datepicker.length; i++) {
+            datepicker[i].flatpickr();
+        }
+    }
+
+    init_flatpickrdateonly();
+
+    init_flatpickr();
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    });
+
+    document.body.addEventListener('htmx:afterSwap', (event) => {
+        init_flatpickrdateonly();
+        init_flatpickr();
+        refresh_ck_editor()
+        try {
+            after_swap()
+        } catch (e) {
+            console.log('not implemented')
+        }
+    });
+
+    function refresh_ck_editor() {
+        console.log('refresh ckeditor');
+        ckeditorFields = document.querySelectorAll('.ckeditor');
+        for (let i = 0; i < ckeditorFields.length; i++) {
+            CKEDITOR.replace(ckeditorFields[i].id,
+                {
+                    filebrowserBrowseUrl: '{% url 'ckeditor_browse' %}',
+                    filebrowserUploadUrl: '{% url 'ckeditor_upload' %}',
+                    removePlugins: ['sourcearea', 'elementspath', 'save', 'forms'],
+                }
+            );
+        }
+    }
+
+    refresh_ck_editor()
+
+</script>
