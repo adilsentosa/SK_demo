@@ -8,6 +8,8 @@ from core.algoritma import AG
 
 from .decorators import unauthenticated_user
 from .forms import *
+from .decorators import allowed_users
+from django.contrib.auth.models import Group
 
 @unauthenticated_user
 def loginPage(request):
@@ -30,6 +32,7 @@ def logoutUser(request):
   return redirect('login')
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 # @admin_only
 def index(request):
   guru = Guru.objects.all()
@@ -47,6 +50,7 @@ def index(request):
 
 # KELAS
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def form_Kelas(request):
   kelas = Kelas.objects.all()
   
@@ -54,6 +58,7 @@ def form_Kelas(request):
   return render(request,'back/kelas/form.html', context )
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def create_Kelas(request):
   form = KelasForm()
   if request.method == 'POST' :
@@ -67,6 +72,7 @@ def create_Kelas(request):
   return render(request,'back/kelas/create.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def update_Kelas(request, pk):
   k = Kelas.objects.get(id=pk)
   form = KelasForm(instance=k)
@@ -80,6 +86,7 @@ def update_Kelas(request, pk):
   return render(request,'back/kelas/create.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def delete_Kelas(request, pk):
   k = get_object_or_404(Kelas, id=pk)
   k.delete()
@@ -88,11 +95,13 @@ def delete_Kelas(request, pk):
 
 # RUANGAN
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def form_Ruangan(request):
   context = {'ruang_form': Ruangan.objects.all()}
   return render(request, 'back/ruangan/form.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def create_Ruangan(request):
   form = RuanganForm(request.POST or None)
   if request.method == 'POST':
@@ -106,6 +115,7 @@ def create_Ruangan(request):
   return render(request, 'back/ruangan/create.html',context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def update_Ruangan(request, pk):
   rg = Ruangan.objects.get(id=pk)
   form = RuanganForm(instance=rg)
@@ -121,6 +131,7 @@ def update_Ruangan(request, pk):
   return render(request, 'back/ruangan/create.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def delete_Ruangan(request, pk):
   rg = Ruangan.objects.get(pk=pk)
   if request.method == 'POST':
@@ -130,11 +141,13 @@ def delete_Ruangan(request, pk):
 
 # JAM
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def form_jam(request):
   context = {'jam': Jam.objects.all()}
   return render(request, 'back/jam/form.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def create_jam(request):
     form = JamForm(request.POST or None)
     if request.method == 'POST':
@@ -148,6 +161,7 @@ def create_jam(request):
     return render(request, 'back/jam/create.html',context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def update_jam(request, pk):
   jam = Jam.objects.get(id=pk)
   form = JamForm(instance=jam)
@@ -163,6 +177,7 @@ def update_jam(request, pk):
   return render(request, 'back/jam/create.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def delete_jam(request, pk):
   rg = Jam.objects.get(pk=pk)
   if request.method == 'POST':
@@ -172,6 +187,7 @@ def delete_jam(request, pk):
 
 # HARI
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def form_hari(request):
   context = {'hari': Hari.objects.all()}
   return render(request, 'back/hari/form.html', context)
@@ -190,6 +206,7 @@ def create_hari(request):
   return render(request, 'back/hari/create.html',context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def update_hari(request, pk):
   hari = Hari.objects.get(id=pk)
   form = HariForm(instance=hari)
@@ -205,6 +222,7 @@ def update_hari(request, pk):
   return render(request, 'back/hari/create.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def delete_hari(request, pk):
   rg = Hari.objects.get(pk=pk)
   if request.method == 'POST':
@@ -214,11 +232,13 @@ def delete_hari(request, pk):
 
 # MAPEL
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def form_mapel(request):
   context = {'mapel': Mapel.objects.all()}
   return render(request, 'back/mapel/form.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def create_mapel(request):
   form = MapelForm(request.POST or None)
   if request.method == 'POST':
@@ -232,6 +252,7 @@ def create_mapel(request):
   return render(request, 'back/mapel/create.html',context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def update_mapel(request, pk):
   mapel = Mapel.objects.get(id=pk)
   form = MapelForm(instance=mapel)
@@ -247,6 +268,7 @@ def update_mapel(request, pk):
   return render(request, 'back/mapel/create.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def delete_mapel(request, pk):
   rg = Mapel.objects.get(pk=pk)
   if request.method == 'POST':
@@ -256,16 +278,21 @@ def delete_mapel(request, pk):
 
 # GURU
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def form_Guru(request):
   context = {'guru': Guru.objects.all()}
   return render(request, 'back/guru/form.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def create_Guru(request):
   form = GuruForm(request.POST or None)
   if request.method == 'POST':
     if form.is_valid():
-      form.save()
+      user =form.save()
+      username = form.cleared_data.get(username)
+      group = Group.objects.get(name='Guru')
+      user.groups.add(group)
       messages.success(request, "Data Berhasil Ditambahkan")
       return redirect('guru')
     else:
@@ -274,6 +301,7 @@ def create_Guru(request):
   return render(request, 'back/guru/create.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def update_Guru(request, pk):
   gr = Guru.objects.get(id=pk)
   form = GuruForm(instance=gr)
@@ -289,6 +317,7 @@ def update_Guru(request, pk):
   return render(request, 'back/guru/create.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def delete_Guru(request, pk):
     gr = Guru.objects.get(pk=pk)
     if request.method == 'POST':
@@ -297,13 +326,69 @@ def delete_Guru(request, pk):
         return redirect('guru')
     context = {'item':gr}
     return render(request, 'penjadwalan/guru/guru_delete.html', context)
+  
+  # Staff
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
+def form_Staff(request):
+  context = {'staff': Staff.objects.all()}
+  return render(request, 'back/staff/form.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin'])
+def create_Staff(request):
+  form = StafForm(request.POST or None)
+  if request.method == 'POST':
+    if form.is_valid():
+      
+      user= form.save()
+      usermame =form.cleared_data.get('username')
+      group= Group.objects.get(name ='Staff')
+      user.groups.add(group)
+      
+      messages.success(request, "Data Berhasil Ditambahkan")
+      return redirect('staff')
+    else:
+      print('Invalid')
+  context = {'form': form}
+  return render(request, 'back/staff/create.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
+def update_Staff(request, pk):
+  sf = Staff.objects.get(id=pk)
+  form = StafForm(instance=sf)
+  if request.method =='POST':
+    form =StafForm(request.POST, instance=sf)
+    if form.is_valid():
+      form.save()
+      messages.success(request, "Data Berhasil Diperbaharui")
+      return redirect('staff')
+    else:
+      print('Invalid')
+  context ={'form':form}
+  return render(request, 'back/staff/create.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
+def delete_Staff(request, pk):
+    sf = Staff.objects.get(pk=pk)
+    if request.method == 'POST':
+        sf.delete()
+        messages.success(request, "Data Berhasil Dihapus")
+        return redirect('staff')
+    context = {'item':sf}
+    return render(request, 'penjadwalan/guru/guru_delete.html', context)
+  
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def form_tugas(request):
   context = {'tugas': Tugas.objects.all()}
   return render(request, 'back/tugas/form.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def create_tugas(request):
   form = TugasForm(request.POST or None)
   if request.method == 'POST':
@@ -317,6 +402,7 @@ def create_tugas(request):
   return render(request, 'back/tugas/create.html',context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def update_tugas(request, pk):
   tugas = Tugas.objects.get(id=pk)
   form = TugasForm(instance=tugas)
@@ -332,6 +418,7 @@ def update_tugas(request, pk):
   return render(request, 'back/tugas/create.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin','Staff'])
 def delete_tugas(request, pk):
   rg = Tugas.objects.get(pk=pk)
   if request.method == 'POST':
@@ -340,6 +427,7 @@ def delete_tugas(request, pk):
     return redirect('tugas')
 
 @login_required
+@allowed_users(allowed_roles=['Admin','Staff'])
 def generate(request):
   context = {}
   context['total_tugas'] =  Tugas.objects.all().count()

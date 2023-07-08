@@ -66,6 +66,16 @@ class Guru(models.Model):
 
   def __str__(self):
     return f'{self.nama}'
+  
+class Staff(models.Model):
+ nama = models.CharField(max_length=50)
+ telepon = models.CharField(max_length=50)
+ alamat = models.CharField(max_length=200)
+ jenis_kelamin = models.CharField(max_length=1, choices=JENIS_KELAMIN)
+ status = models.IntegerField(choices=STATUS, default=1)
+ user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+def __str__(self):
+  return f'{self.nama}'
 
 class Tugas(models.Model):
   mapel = models.ForeignKey(Mapel, on_delete=models.SET_NULL, null=True)  

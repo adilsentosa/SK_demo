@@ -12,6 +12,8 @@
 {% url 'create_hari' as create_hari %}
 {% url 'mapel' as mapel %}
 {% url 'create_mapel' as create_mapel %}
+{% url 'staff' as staff %}
+{% url 'create_Staff' as create_Staff %}
 {% url 'guru' as guru %}
 {% url 'create_guru' as create_guru %}
 {% url 'tugas' as tugas %}
@@ -76,9 +78,17 @@
         </div>
         <span class="nav-link-text ms-1">Guru</span>
       </a>
+    </li>   
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == create_tugas %} active {% endif %} {% if request.path == staff %} active {% endif %}" href="{% url 'staff' %}">
+        <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+          <i class="ni ni-single-copy-04 text-info text-sm opacity-10"></i>
+        </div>
+        <span class="nav-link-text ms-1">Staff</span>
+      </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link {% if request.path == create_tugas %} active {% endif %} {% if request.path == tugas %} active {% endif %}" href="{% url 'tugas' %}">
+      <a class="nav-link {% if request.path == create_Staff %} active {% endif %} {% if request.path == tugas %} active {% endif %}" href="{% url 'tugas' %}">
         <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
           <i class="ni ni-single-copy-04 text-info text-sm opacity-10"></i>
         </div>

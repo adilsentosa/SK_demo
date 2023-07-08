@@ -295,14 +295,14 @@ def export_jadwal(request):
   row_num = 0
   font_style = xlwt.XFStyle()
   font_style.font.bold = True
-  columns = ['tugas__guru__nama', 'waktu__nama_hari','tugas__mapel__nama_mapel','waktu__jam','waktu__jam__waktu_mulai','waktu__jam__waktu_selesai']
+  columns = ['tugas__guru__nama', 'waktu__nama_hari','tugas__mapel__nama_mapel','waktu__jam','waktu__jam__waktu_mulai','waktu__jam__waktu_selesai','tugas__mapel__kelas__nama_kelas']
   
   for col_num in range(len(columns)):
     ws.write(row_num, col_num, columns[col_num], font_style)
       
   font_style = xlwt.XFStyle()
   
-  rows = Jadwal.objects.order_by().values_list('tugas__guru__nama', 'waktu__nama_hari','tugas__mapel__nama_mapel','waktu__jam__waktu_mulai','waktu__jam__waktu_selesai')    
+  rows = Jadwal.objects.order_by().values_list('tugas__guru__nama', 'waktu__nama_hari','tugas__mapel__nama_mapel','waktu__jam__waktu_mulai','waktu__jam__waktu_selesai','tugas__mapel__kelas__nama_kelas')    
   for row in rows :
     row_num+=1        
     for col_num in range(len(row)):

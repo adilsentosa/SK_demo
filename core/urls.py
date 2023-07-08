@@ -49,6 +49,12 @@ urlpatterns = [
     path('delete_guru/<str:pk>/', views.delete_Guru, name='delete_guru'),
     path('guru/guru-import/', excelviews.upload_file_Guru, name='importguru'),
     path('guru/guru-export/', excelviews.upload_file_Guru, name='exportguru'),
+    
+    path('staff/', views.form_Staff, name='staff'),
+    path('staff/create', views.create_Staff, name='create_Staff'),
+    path('staff/update/<str:pk>/', views.update_Staff, name='update_Staff'),
+    path('delete_Staff/<str:pk>/', views.delete_Staff, name='delete_Staff'),
+
 
 
     path('tugas/', views.form_tugas, name='tugas'),

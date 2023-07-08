@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load auth_extras %}
 
 {% block content %}
 <main class="main-content position-relative border-radius-lg ">
@@ -11,13 +12,13 @@
           <div class="card-header pb-0">
             <div class="d-lg-flex">
               <div>
-                <h5 class="mb-0">Tabel Guru</h5>
+                <h5 class="mb-0">Tabel Staf</h5>
               </div>
               <div class="ms-auto my-auto mt-lg-0 mt-4">
                 <div class="ms-auto my-auto">
-                  <a href="{% url 'create_guru' %}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp;
-                    Guru</a>
-                 <!-- <a href="{% url 'importguru' %}" class="btn btn-outline-primary btn-sm mb-0" target="_blank">
+                  <a href="{% url 'create_Staff' %}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp;
+                    Staff</a>
+                <!--  <a href="{% url 'importguru' %}" class="btn btn-outline-primary btn-sm mb-0" target="_blank">
                     Import</a>
                   <a href="{% url 'exportguru' %}" class="btn btn-outline-primary btn-sm mb-0" target="_blank">
                     Export</a>-->
@@ -31,10 +32,9 @@
                 <thead class="thead-light">
                   <tr>
                     <th>No</th>
-                    <th>Nama Guru</th>
+                    <th>Nama Staff</th>
                     <th>Username</th>
                     <th>Telepon</th>
-                    <th>Mapel</th>
                     <th>Email</th>
                     <th>Alamat</th>
                     <th>JK</th>
@@ -43,54 +43,55 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for k in guru %}
+                  {% for sf in staff %}
                   <tr>
-                    <td>{{k.id}}</td>
-                    <td>{{k.nama}}</td>
-                    <td>{{k.user.username}}</td>
-                    <td>{{k.telepon}}</td>
-                    <td>{{k.mapel}}</td>
-                    <td>{{k.user.email}}</td>
-                    <td>{{k.alamat}}</td>
+                    <td>{{sf.id}}</td>
+                    <td>{{sf.nama}}</td>
+                    <td>{{sf.user.username}}</td>
+                    <td>{{sf.telepon}}</td>
+                    <td>{{sf.user.email}}</td>
+                    <td>{{sf.alamat}}</td>
                     <td>
-                      {% if k.jenis_kelamin == 'P' %}
+                      {% if sf.jenis_kelamin == 'P' %}
                       Perempuan
                       {% else %}
                       Laki-laki
                       {% endif %}
                     </td>
                     <td>
-                      {% if k.status == 1 %}
+                      {% if sf.status == 1 %}
                       Aktif
                       {% else %}
                       Aktif
                       {% endif %}
                     </td>
+                 {% if request.user|has_group:'Admin'%}
                     <td class="text-center">
-                      <a href="{% url 'update_guru' k.id %}" class="btn btn-outline-warning" data-bs-toggle="tooltip"
+                      <a href="{% url 'update_Staff' sf.id %}" class="btn btn-outline-warning" data-bs-toggle="tooltip"
                         data-bs-original-title="Edit">
                         ubah
                       </a>
                       <button type="button" data-bs-toggle="modal" class="btn btn-outline-danger"
-                        data-bs-target="#Delete{{k.id}}">
+                        data-bs-target="#Delete{{sf.id}}">
                         hapus
                       </button>
+                   {% endif %}
 
                     </td>
                   </tr>
-                  <div class="modal fade" id="Delete{{k.id}}" tabindex="-1" aria-hidden="true">
+                  <div class="modal fade" id="Delete{{sf.id}}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog mt-lg-10">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="ModalLabel">Hapus{{k.nama_kelas}}</h5>
+                          <h5 class="modal-title" id="ModalLabel">Hapus{{sf.nama}}</h5>
                           <i class="fas fa-upload ms-3"></i>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                          <p>Are you sure you want to delete<strong> {{k.nama_ruangan}}</strong> permanently?</p>
+                          <p>Are you sure you want to delete<strong> {{sf.staff}}</strong> permanently?</p>
                         </div>
                         <div class="modal-footer">
-                          <form method="POST" action="{% url 'delete_guru' k.id %}">
+                          <form method="POST" action="{% url 'delete_Staff' sf.id %}">
                             {% csrf_token %}
                             <button type="button" class="btn bg-gradient-secondary btn-sm"
                               data-bs-dismiss="modal">Close</button>

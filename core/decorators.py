@@ -3,6 +3,7 @@ import re
 from xml.etree import ElementInclude
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.shortcuts import render,get_object_or_404
 
 def unauthenticated_user(view_func):
     def wrapper_func(request, *args, **kwargs):
@@ -24,7 +25,7 @@ def allowed_users(allowed_roles=[]):
             if group in allowed_roles:
                 return view_func(request, *args, **kwargs)
             else:
-                return HttpResponse('you are not authorized to view this page')
+                return render(request,'noacsess.html')
         return wrapper_func
     return decorator
 
@@ -34,16 +35,13 @@ def admin_only(view_func):
         if request.user.groups.exists():
             group = request.user.groups.all()[0].name
                 
-        if group == 'pegawai':
-            return redirect('userpage_pegawai')
+        if group == 'Guru':
+            return redirect('jadwal')
         
-        if group == 'walisiswa':
-            return redirect('userpage_walisiswa')
+        if group == 'Staff':
+            return redirect('index')
         
-        if group == 'siswa':
-            return redirect('userpage_walisiswa')
-        
-        if group == 'admin':
+        if group == 'Admin':
             return view_func(request, *args, **kwargs)
             
        

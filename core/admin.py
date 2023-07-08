@@ -31,6 +31,13 @@ admin.site.register(Kelas, admin_class)
 admin.site.register(Excelfile, admin_class)
 admin.site.register(Ruangan, admin_class)
 admin.site.register(Guru, admin_class)
+admin.site.register(Staff, admin_class)
+admin.site.register(Mapel,admin_class)
+admin.site.register(Tugas,admin_class)
+admin.site.register(Jam, admin_class)
+admin.site.register(Hari,admin_class)
+
+
 
 
 
